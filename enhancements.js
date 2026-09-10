@@ -19,10 +19,15 @@
     removeOverlay('celebration-overlay');
     const overlay=document.createElement('div');
     overlay.id='celebration-overlay'; overlay.className='celebration-overlay good';
-    overlay.innerHTML=`<div class="celebration-card"><div class="celebration-title">🎉 RÄTT SVAR! +10 XP 🎉</div><iframe class="rick-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&playsinline=1&start=0&end=3&loop=1&playlist=dQw4w9WgXcQ" title="Celebration" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin"></iframe><div class="celebration-sub">Legendariskt! Klicka utanför eller vänta 3 sekunder ⚡</div></div>`;
+    overlay.innerHTML=`<div class="celebration-card"><div class="celebration-title">🎉 RÄTT SVAR! +10 XP 🎉</div><video class="rick-frame" src="rickroll.mp4" title="Rickroll celebration" autoplay muted playsinline preload="auto"></video><div class="celebration-sub">Legendariskt! Klicka utanför eller vänta 3 sekunder ⚡</div></div>`;
     document.body.appendChild(overlay);
+    const video=overlay.querySelector('.rick-frame');
+    video.currentTime=0;
+    const play=()=>video.play().catch(()=>{});
+    play();
+    video.addEventListener('loadeddata',play,{once:true});
     overlay.addEventListener('click',e=>{if(e.target===overlay)fadeRemove(overlay)});
-    setTimeout(()=>fadeRemove(overlay),3000);
+    setTimeout(()=>{video.pause();fadeRemove(overlay)},3000);
   };
 
   window.check=function(){
